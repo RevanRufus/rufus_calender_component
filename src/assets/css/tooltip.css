@@ -1,0 +1,263 @@
+.tooltip-container {
+    width: 200px;
+    max-height: 90px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+    border-radius: 7px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-left: 10px solid #016dbe;
+    text-align: justify;
+    cursor: pointer;
+}
+
+.tooltip-container:hover {
+    background-color: #d1eefb;
+}
+
+.badge-container {
+    background: #fdd171;
+    color: #1a1a1a;
+    position: absolute;
+    top: -5px; 
+    right: -5px; 
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem; 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.badge-container > p {
+    margin: 0;
+    line-height: 1;
+    text-align: center;
+}
+
+.tooltip-content-container {
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 4px 10px #0f0f0f1a;
+    padding: 0 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+
+.content-cards {
+    margin-bottom: "10px";
+    padding: "10px";
+    border: "1px solid #ddd";
+    border-radius: "5px",
+}
+
+.meet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 10px;
+    text-align: center;
+}
+
+.meet-header>span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.blue-bar {
+    width: 10px;
+    background-color: #007bff;
+    margin-right: 10px;
+    height: 100px;
+}
+
+.tippy-tooltip {
+    padding: 0 !important;
+}
+
+.meet-card {
+    display: flex;
+    margin: 10px 0;
+    background-color: #fff;
+    font-size: 0.9rem;
+}
+
+.meet-card:hover{
+    background-color: #d1eefb;
+}
+
+.meet-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.meet-content>p{
+    font-size: 12px;
+}
+
+
+
+.tooltip-section>p {
+    margin: 0;
+}
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffffb2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10022;
+}
+
+
+
+.modal-content {
+    background: white;
+    padding: 10px;
+    border-radius: 2px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1001;
+    height: 250px;
+}
+
+.close-button-container {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #007bff;
+    border-radius: 50px;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.modal-body {
+    padding: 0 10px;
+    border: 1px solid #e9e9e9;
+    display: flex;
+    height: 100%;
+}
+
+.modal-body>hr {
+    margin: 6px 10px;
+}
+
+.meet-detials {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: normal;
+    font-size: 0.8em;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icon-button {
+    padding: 5px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid #007bff;
+    color: #007bff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons {
+    width: 50px;
+    display: flex;
+    gap: 10px;
+}
+
+.meet-join {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 10px;
+}
+
+.meet-join>button {
+    cursor: pointer;
+    background-color: #006dbe;
+    border: none;
+    padding: 4px 8px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.meet-join>img {
+    border: 1px solid #e9e9e9;
+    width: 100px;
+}
+
+.modal-close {
+    border: none;
+    color: #fff;
+    background: transparent;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(255, 255, 255); 
+    border-radius: 10px;
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background: #d1eefb; 
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d1eefb; 
+  }
+
+
+
+
+
+
+
+

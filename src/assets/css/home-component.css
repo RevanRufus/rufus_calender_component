@@ -1,0 +1,43 @@
+.week-header {}
+
+.week-header>p {
+    text-align: center;
+    font-size: 10px;
+}
+
+.week-children,.day-children {
+    border: 1px solid #2e2e2e0d;;
+    width: 100%;
+    height: 60px;
+    position: relative;
+}
+.month-children{
+    position: relative;
+}
+
+.month-children,
+.previous-month-children {
+    border: 1px solid #7c7c7c30;
+    align-items: center;
+    padding: 10px;
+    text-align: center;
+}
+
+.previous-month-children {
+    opacity: .5;
+}
+
+.time-slot-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    height: 60px;
+}
+
+.time-slot-item>span {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%);
+}
