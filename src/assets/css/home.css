@@ -15,6 +15,8 @@
     justify-content: space-between;
     height: fit-content;
     padding: 8px;
+    background: white;
+    border-bottom: 4px solid #e9e9e9;
 }
 
 .arrows-holder {
@@ -112,7 +114,79 @@
     margin-top: 0px;
 }
 
-.week-time-container{
+.week-time-container {
     margin-top: 60px;
 
+}
+
+
+
+
+.year-grid {
+    padding: 10px;
+}
+
+.year-children-holder {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px;
+    padding: 20px;
+}
+
+.year-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.month-card {
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+.month-title {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.month-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
+}
+
+.year-month-children {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #7c7c7c30;
+    padding: 5px;
+    text-align: center;
+}
+
+.month-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.previous-month-children {
+    color: #aaa;
+    background-color: #f0f0f0;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.current-month-children {
+    color: #333;
+    background-color: #fff;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
 }

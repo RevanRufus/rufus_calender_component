@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { MONTH_NAMES, WEEK_NAMES } from "../common/constants";
-import { DayChildrenCard, MonthChildrenCard, TimeSlotContainer, WeekChildrenCard, WeekHeaderCard } from "../components/HomeComponents";
+import { DayChildrenCard, MonthChildrenCard, TimeSlotContainer, WeekChildrenCard, WeekHeaderCard, YearChildrenCard } from "../components/HomeComponents";
 import { addOneDay, getCurrentWeekDays, getHourlyTimeValuesWithMeridian, getLastDateOfPreviousMonth, getPreviousMonthDaysInCurrentMonthWeek, getTotalDaysInMonth, subtractOneDay } from "../common/functions"
 import { useFetch } from "../hooks/fetch";
 import { FETCH_FROM_TO_END_DATE, FETCH_MEETING } from "../common/api";
@@ -94,7 +94,7 @@ export const Home = () => {
                 return (
                     <MonthChildrenCard
                         totalDaysOfPreviousMonth={getLastDateOfPreviousMonth(selectedDate.year, selectedDate.month)}
-                        previousMonthDays={getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, selectedDate.month - 1, false)}
+                        previousMonthDays={getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, selectedDate.month, false)}
                         currentMonthDays={getTotalDaysInMonth(selectedDate.year, selectedDate.month)}
                         selectedDate={selectedDate}
                         eventData={eventData}
@@ -102,29 +102,16 @@ export const Home = () => {
                 );
 
             case 'Year':
+                return (
+                    <YearChildrenCard
+                        selectedDate={selectedDate}
+                    />
+                )
 
             default:
                 break;
         }
     }
-
-    // const onLeftArrowHandler = () => {
-    //     const currentDate = subtractOneDay(new Date(selectedDate.year, selectedDate.month, selectedDate.date));
-    //     setSelectedDate({
-    //         date: currentDate.getDate(),
-    //         month: currentDate.getMonth(),
-    //         year: currentDate.getFullYear(),
-    //     })
-    // }
-
-    // const onRightArrowHandler = () => {
-    //     const currentDate = addOneDay(new Date(selectedDate.year, selectedDate.month, selectedDate.date));
-    //     setSelectedDate({
-    //         date: currentDate.getDate(),
-    //         month: currentDate.getMonth(),
-    //         year: currentDate.getFullYear(),
-    //     })
-    // }
 
     const onLeftArrowHandler = () => {
         const currentDate = new Date(selectedDate.year, selectedDate.month, selectedDate.date);
@@ -135,6 +122,8 @@ export const Home = () => {
             currentDate.setDate(currentDate.getDate() - 7)
         } else if (selectedView === 'Month') {
             currentDate.setMonth(currentDate.getMonth() - 1)
+        }else if (selectedView === 'Year') {
+            currentDate.setFullYear(currentDate.getFullYear() - 1)
         }
 
         setSelectedDate({
@@ -153,6 +142,8 @@ export const Home = () => {
             currentDate.setDate(currentDate.getDate() + 7)
         } else if (selectedView === 'Month') {
             currentDate.setMonth(currentDate.getMonth() + 1)
+        }else if (selectedView === 'Year') {
+            currentDate.setFullYear(currentDate.getFullYear() + 1)
         }
 
         setSelectedDate({
@@ -196,7 +187,7 @@ export const Home = () => {
         <section className="table-container">
 
             {
-                (selectedView !== "Month") && <div className={`time-container ${selectedView.toLocaleLowerCase()}-time-container`}>
+                (selectedView !== "Month") &&(selectedView !== "Year")&& <div className={`time-container ${selectedView.toLocaleLowerCase()}-time-container`}>
                     {
                         timeSlot.map((item, index) => {
 
@@ -210,7 +201,7 @@ export const Home = () => {
 
             <div className={`grid-view ${selectedView.toLowerCase()}-grid`}>
                 {
-                    (selectedView !== 'Day') && <div className="week-header-holder">
+                    (selectedView !== 'Day') &&  (selectedView !== "Year") &&<div className="week-header-holder">
                         {renderGridHeaderView()}
                     </div>
                 }

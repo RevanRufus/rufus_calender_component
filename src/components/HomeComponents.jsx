@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import { ToolTipComp } from "./Tooltip"
+import { MONTH_NAMES, WEEK_NAMES } from "../common/constants";
+import { getLastDateOfPreviousMonth, getPreviousMonthDaysInCurrentMonthWeek, getTotalDaysInMonth } from "../common/functions";
 
 
 
@@ -35,20 +36,13 @@ export const WeekChildrenCard = ({ selectedDate, hour, eventData }) => {
     });
 
 
-    
+
     return (
         <div className="week-children" >
             {availableEvents.length > 0 ? <ToolTipComp calendarData={availableEvents} /> : null}
         </div>
     );
 };
-
-
-
-
-
-
-
 
 
 export const DayChildrenCard = ({ selectedDate, hour, eventData }) => {
@@ -65,7 +59,6 @@ export const DayChildrenCard = ({ selectedDate, hour, eventData }) => {
 
     return <div className="day-children">
         {
-            // (new Date(eventData.start).getTime() === currentSelectedDate.getTime()) && <EventCard hour={hour} />
             availableEvents?.length ? <EventCard availableEvents={availableEvents} hour={hour} /> : ''
         }
     </div>
@@ -103,6 +96,69 @@ export const MonthChildrenCard = ({ totalDaysOfPreviousMonth, previousMonthDays,
             {previousMonthElements}
             {currentMonthElements}
         </>
+    );
+};
+
+
+export const YearChildrenCard = ({ selectedDate }) => {
+
+
+
+
+    return (
+        MONTH_NAMES.map((items, index) => {
+            const totalDaysOfPreviousMonth = getLastDateOfPreviousMonth(selectedDate.year, index)
+            const previousMonthDays = getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, index , false)
+            const currentMonthDays = getTotalDaysInMonth(selectedDate.year, index)
+            return (
+                <MTYCalendar
+                    monthName={items}
+                    totalDaysOfPreviousMonth={totalDaysOfPreviousMonth}
+                    previousMonthDays={previousMonthDays}
+                    currentMonthDays={currentMonthDays}
+                    selectedDate={selectedDate} />
+            )
+        })
+    )
+}
+
+const MTYCalendar = ({ monthName,
+    totalDaysOfPreviousMonth,
+    previousMonthDays,
+    currentMonthDays,
+    selectedDate }) => {
+
+    const previousMonthElements = "x".repeat(previousMonthDays).split('').map((item, index) => {
+        const day = (totalDaysOfPreviousMonth - previousMonthDays) + (index + 1)
+        return <div className="previous-month-children" key={`prev-${index}`}>{day}</div>
+    });
+
+    const currentMonthElements = "x".repeat(currentMonthDays).split('').map((item, index) => {
+        const dayDate = new Date(selectedDate.year, selectedDate.month, index + 1)
+
+        return (
+            <div className="year-month-children" key={`current-${index}`}>
+                {index + 1}
+            </div>
+        );
+    });
+
+
+    return (
+        <div className="month-card">
+            <h3 className="month-title">{monthName}</h3>
+            <div className="month-weekdays">
+                {WEEK_NAMES.map((weekday, index) => (
+                    <div className="weekday" key={`weekday-${index}`}>
+                        {weekday.charAt(0)}
+                    </div>
+                ))}
+            </div>
+            <div className="month-calendar-grid">
+                {previousMonthElements}
+                {currentMonthElements}
+            </div>
+        </div>
     );
 };
 
