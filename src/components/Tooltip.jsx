@@ -23,11 +23,6 @@ export const ToolTipComp = ({ calendarData }) => {
         setTooltipOpen(false);
     };
 
-    // const handleOpenModal = (event) => {
-    //     setSelectedEvent(event)
-    //     setModalOpen(true)
-    //     setTooltipOpen(false)
-    // };
 
     const handleCloseModal = () => {
         setSelectedEvent(null)
