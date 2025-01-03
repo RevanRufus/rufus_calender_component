@@ -4,8 +4,8 @@ import { TooltipContent } from "./TooltipContent";
 import { Modal } from "./Modal";
 
 export const ToolTipComp = ({ calendarData }) => {
-    const [isTooltipOpen, setTooltipOpen] = useState(false)
-    const [isModalOpen, setModalOpen] = useState(false)
+    const [tooltipopen, setTooltipOpen] = useState(false)
+    const [modalopen, setModalOpen] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState(null)
 
     const event = calendarData?.[0]
@@ -15,7 +15,7 @@ export const ToolTipComp = ({ calendarData }) => {
             setSelectedEvent(event)
             setModalOpen(true)
         } else {
-            setTooltipOpen(!isTooltipOpen);
+            setTooltipOpen(!tooltipopen);
         }
     };
 
@@ -40,7 +40,7 @@ export const ToolTipComp = ({ calendarData }) => {
                     interactive
                     trigger="manual"
                     theme="light"
-                    open={isTooltipOpen}
+                    open={tooltipopen}
                     onRequestClose={handleCloseTooltip}
                     html={<TooltipContent onClose={handleCloseTooltip} eventdata={calendarData} />}
                 >
@@ -89,7 +89,7 @@ export const ToolTipComp = ({ calendarData }) => {
                     </p>
                 </div>
             )}
-            {isModalOpen && (
+            {modalopen && (
                 <Modal selectedCard={selectedEvent} closeModal={handleCloseModal} />
             )}
         </div>
