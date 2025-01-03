@@ -1,56 +1,102 @@
 import React, { useState } from "react";
 import { Tooltip } from "react-tippy";
 import { TooltipContent } from "./TooltipContent";
+import { Modal } from "./Modal";
 
+export const ToolTipComp = ({ calendarData }) => {
+    const [isTooltipOpen, setTooltipOpen] = useState(false)
+    const [isModalOpen, setModalOpen] = useState(false)
+    const [selectedEvent, setSelectedEvent] = useState(null)
 
-export const ToolTipComp = ({ calendarData,leftval }) => {
+    const event = calendarData?.[0]
 
-    const [isTooltipOpen, setTooltipOpen] = useState(true);
+    const handleCardClick = () => {
+        if (calendarData?.length === 1) {
+            setSelectedEvent(event)
+            setModalOpen(true)
+        } else {
+            setTooltipOpen(!isTooltipOpen);
+        }
+    };
 
-    const event = calendarData[0]
-
-    const handleClose = () => {
+    const handleCloseTooltip = () => {
         setTooltipOpen(false);
     };
 
+    // const handleOpenModal = (event) => {
+    //     setSelectedEvent(event)
+    //     setModalOpen(true)
+    //     setTooltipOpen(false)
+    // };
+
+    const handleCloseModal = () => {
+        setSelectedEvent(null)
+        setModalOpen(false)
+    };
 
     return (
-        <div className="tooltip-container" >
-
+        <div className="tooltip-container">
             <div className="badge-container">
-                <p>{calendarData.length}</p>
+                <p>{calendarData?.length || 0}</p>
             </div>
-            <Tooltip
-                position="right"
-                interactive
-                trigger="click"
-                theme="light"
-                // open={isTooltipOpen}
-                // hideOnClick={()=>setTooltipOpen(false)}
-                html={(
-
-                    <TooltipContent onClose={handleClose} eventdata={calendarData} />
-                )}
-
-            >
-                <div className="" onMouseEnter={() => setTooltipOpen(true)} >
-                    <p>{event?.job_id?.jobRequest_Title}</p>
-                    <p>{event?.user_det?.handled_by?.firstName}</p>
-
+            {calendarData?.length > 1 ? (
+                <Tooltip
+                    position="right"
+                    interactive
+                    trigger="manual"
+                    theme="light"
+                    open={isTooltipOpen}
+                    onRequestClose={handleCloseTooltip}
+                    html={<TooltipContent onClose={handleCloseTooltip} eventdata={calendarData} />}
+                >
+                    <div className="card-content" onClick={handleCardClick}>
+                        <div className="card-header">
+                            <p>{event?.job_id?.jobRequest_Title || "No Title"}</p>
+                        </div>
+                        <p>{event?.user_det?.handled_by?.firstName || "Unknown"}</p>
+                        <p>
+                            {event.start
+                                ? new Date(event.start).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                  })
+                                : "Start Time"}
+                            -
+                            {event.end
+                                ? new Date(event.end).toLocaleTimeString([], {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                  })
+                                : "End Time"}
+                        </p>
+                    </div>
+                </Tooltip>
+            ) : (
+                <div className="card-content" onClick={handleCardClick}>
+                    <div className="card-header">
+                        <p>{event?.job_id?.jobRequest_Title || "No Title"}</p>
+                    </div>
+                    <p>{event?.user_det?.handled_by?.firstName || "Unknown"}</p>
                     <p>
-                        {new Date(event.start).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                        })}
+                        {event.start
+                            ? new Date(event.start).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                              })
+                            : "Start Time"}
                         -
-                        {new Date(event.end).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                        })}
+                        {event.end
+                            ? new Date(event.end).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                              })
+                            : "End Time"}
                     </p>
                 </div>
-            </Tooltip>
+            )}
+            {isModalOpen && (
+                <Modal selectedCard={selectedEvent} closeModal={handleCloseModal} />
+            )}
         </div>
-    )
-
-}
+    );
+};

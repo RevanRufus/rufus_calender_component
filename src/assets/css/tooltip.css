@@ -9,10 +9,7 @@
     left: 10px;
     top: 10px;
     font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
+    padding: 0 5px;
     border-left: 10px solid #016dbe;
     text-align: justify;
     cursor: pointer;
@@ -64,6 +61,13 @@
     border-radius: "5px",
 }
 
+.card-content{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .meet-header {
     display: flex;
     align-items: center;
@@ -76,6 +80,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.content-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
