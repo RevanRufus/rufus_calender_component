@@ -100,23 +100,22 @@ export const MonthChildrenCard = ({ totalDaysOfPreviousMonth, previousMonthDays,
 };
 
 
-export const YearChildrenCard = ({ selectedDate }) => {
-
-
-
+export const YearChildrenCard = ({ selectedDate,eventData }) => {
 
     return (
         MONTH_NAMES.map((items, index) => {
             const totalDaysOfPreviousMonth = getLastDateOfPreviousMonth(selectedDate.year, index)
             const previousMonthDays = getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, index , false)
             const currentMonthDays = getTotalDaysInMonth(selectedDate.year, index)
+            
             return (
                 <MTYCalendar
                     monthName={items}
                     totalDaysOfPreviousMonth={totalDaysOfPreviousMonth}
                     previousMonthDays={previousMonthDays}
                     currentMonthDays={currentMonthDays}
-                    selectedDate={selectedDate} />
+                    selectedDate={{ year: selectedDate.year, month: index }}
+                    eventData={eventData} />
             )
         })
     )
@@ -126,7 +125,7 @@ const MTYCalendar = ({ monthName,
     totalDaysOfPreviousMonth,
     previousMonthDays,
     currentMonthDays,
-    selectedDate }) => {
+    selectedDate,eventData }) => {
 
     const previousMonthElements = "x".repeat(previousMonthDays).split('').map((item, index) => {
         const day = (totalDaysOfPreviousMonth - previousMonthDays) + (index + 1)
@@ -136,8 +135,17 @@ const MTYCalendar = ({ monthName,
     const currentMonthElements = "x".repeat(currentMonthDays).split('').map((item, index) => {
         const dayDate = new Date(selectedDate.year, selectedDate.month, index + 1)
 
+        const hasEvent = eventData.some((event) => {
+            const eventStart = new Date(event.start);
+            return (
+                eventStart.getDate() === dayDate.getDate() &&
+                eventStart.getMonth() === dayDate.getMonth() &&
+                eventStart.getFullYear() === dayDate.getFullYear()
+            );
+        });
+
         return (
-            <div className="year-month-children" key={`current-${index}`}>
+            <div className={`year-month-children ${hasEvent ? "highlighted-date" : ""}`} key={`current-${index}`}>
                 {index + 1}
             </div>
         );

@@ -105,6 +105,7 @@ export const Home = () => {
                 return (
                     <YearChildrenCard
                         selectedDate={selectedDate}
+                        eventData={eventData}
                     />
                 )
 

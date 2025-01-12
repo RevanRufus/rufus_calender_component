@@ -40,3 +40,9 @@
     bottom: 0;
     transform: translateY(50%);
 }
+
+.highlighted-date {
+    background-color: #ffeb3b;
+    color: #000;
+    font-weight: bold;
+}
