@@ -1,6 +1,8 @@
 import { ToolTipComp } from "./Tooltip"
 import { MONTH_NAMES, WEEK_NAMES } from "../common/constants";
 import { getLastDateOfPreviousMonth, getPreviousMonthDaysInCurrentMonthWeek, getTotalDaysInMonth } from "../common/functions";
+import { useState } from "react";
+import { TooltipContent } from "./TooltipContent";
 
 
 
@@ -100,14 +102,14 @@ export const MonthChildrenCard = ({ totalDaysOfPreviousMonth, previousMonthDays,
 };
 
 
-export const YearChildrenCard = ({ selectedDate,eventData }) => {
+export const YearChildrenCard = ({ selectedDate, eventData }) => {
 
     return (
         MONTH_NAMES.map((items, index) => {
             const totalDaysOfPreviousMonth = getLastDateOfPreviousMonth(selectedDate.year, index)
-            const previousMonthDays = getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, index , false)
+            const previousMonthDays = getPreviousMonthDaysInCurrentMonthWeek(selectedDate.year, index, false)
             const currentMonthDays = getTotalDaysInMonth(selectedDate.year, index)
-            
+
             return (
                 <MTYCalendar
                     monthName={items}
@@ -125,7 +127,31 @@ const MTYCalendar = ({ monthName,
     totalDaysOfPreviousMonth,
     previousMonthDays,
     currentMonthDays,
-    selectedDate,eventData }) => {
+    selectedDate, eventData }) => {
+
+    const [tooltipData, setTooltipData] = useState([]);
+    const [showTooltip, setShowTooltip] = useState(false);
+
+    const handleDateClick = (dayDate) => {
+        const eventsForDate = eventData.filter((event) => {
+            const eventStart = new Date(event.start);
+            return (
+                eventStart.getDate() === dayDate.getDate() &&
+                eventStart.getMonth() === dayDate.getMonth() &&
+                eventStart.getFullYear() === dayDate.getFullYear()
+            );
+        });
+
+        if (eventsForDate.length > 0) {
+            setTooltipData(eventsForDate);
+            setShowTooltip(true);
+        }
+    };
+
+    const closeTooltip = () => {
+        setShowTooltip(false);
+        setTooltipData([]);
+    };
 
     const previousMonthElements = "x".repeat(previousMonthDays).split('').map((item, index) => {
         const day = (totalDaysOfPreviousMonth - previousMonthDays) + (index + 1)
@@ -145,7 +171,7 @@ const MTYCalendar = ({ monthName,
         });
 
         return (
-            <div className={`year-month-children ${hasEvent ? "highlighted-date" : ""}`} key={`current-${index}`}>
+            <div className={`year-month-children ${hasEvent ? "highlighted-date" : ""}`} key={`current-${index}`} onClick={() => handleDateClick(dayDate)} style={{ cursor: hasEvent ? "pointer" : "default" }}>
                 {index + 1}
             </div>
         );
@@ -166,6 +192,12 @@ const MTYCalendar = ({ monthName,
                 {previousMonthElements}
                 {currentMonthElements}
             </div>
+
+            {showTooltip && (
+                <div className="tooltip-wrapper">
+                    <TooltipContent onClose={closeTooltip} eventdata={tooltipData} />
+                </div>
+            )}
         </div>
     );
 };

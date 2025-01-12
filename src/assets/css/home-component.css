@@ -46,3 +46,11 @@
     color: #000;
     font-weight: bold;
 }
+
+.tooltip-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 64%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
